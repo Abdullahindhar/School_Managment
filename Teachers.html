@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teachers</title>
+
+  <style>
+
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#f4f4f4;
+    }
+
+    /* Header */
+    .header{
+      background:#2c3e50;
+      color:white;
+      padding:15px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .logo img{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+    }
+
+    .nav a{
+      color:white;
+      text-decoration:none;
+      margin-left:15px;
+      font-size:16px;
+    }
+
+    .nav a:hover{
+      color:#f1c40f;
+    }
+
+    .nav .active{
+      border-bottom:2px solid white;
+      padding-bottom:4px;
+    }
+
+    /* Main */
+    .container{
+      padding:20px;
+    }
+
+    .card{
+      background:white;
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+      margin-bottom:20px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    table th,
+    table td{
+      border:1px solid #ccc;
+      padding:10px;
+      text-align:center;
+    }
+
+    table th{
+      background:#2c3e50;
+      color:white;
+    }
+
+    table tr:hover{
+      background:#ecf0f1;
+      cursor:pointer;
+    }
+
+    /* Form */
+    form{
+      display:flex;
+      flex-wrap:wrap;
+      gap:15px;
+      margin-top:15px;
+    }
+
+    input{
+      flex:1;
+      min-width:200px;
+      padding:10px;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    button{
+      background:#2c3e50;
+      color:white;
+      border:none;
+      padding:10px 20px;
+      border-radius:5px;
+      cursor:pointer;
+    }
+
+    button:hover{
+      background:#34495e;
+    }
+
+    /* Footer */
+    footer{
+      background:#2c3e50;
+      color:white;
+      text-align:center;
+      padding:15px;
+      margin-top:20px;
+    }
+
+    /* Responsive */
+    @media(max-width:768px){
+
+      .header{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .nav{
+        margin-top:10px;
+      }
+
+      .nav a{
+        display:inline-block;
+        margin:5px;
+      }
+
+      form{
+        flex-direction:column;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="header">
+
+    <div class="logo">
+      <img src="school_logo.png" alt="logo">
+      <h2>Al-Ilm School</h2>
+    </div>
+
+    <div class="nav">
+      <a href="index.html">Home</a>
+      <a href="Students.html">Students</a>
+      <a href="Teachers.html" class="active">Teachers</a>
+      <a href="Monthly_fee.html">Fees</a>
+      <a href="About_Page.html">About</a>
+    </div>
+
+  </div>
+
+  <!-- Main -->
+  <div class="container">
+
+    <!-- Teachers Table -->
+    <div class="card">
+
+      <h2>Teachers Records</h2>
+
+      <table id="teacherTable">
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Salary</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>T-001</td>
+            <td>Sobia</td>
+            <td>Math</td>
+            <td>40000</td>
+          </tr>
+
+          <tr>
+            <td>T-002</td>
+            <td>Kamran</td>
+            <td>Science</td>
+            <td>35000</td>
+          </tr>
+
+          <tr>
+            <td>T-003</td>
+            <td>Rabia</td>
+            <td>English</td>
+            <td>30000</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <!-- Add Teacher -->
+    <div class="card">
+
+      <h2>Add Teacher</h2>
+
+      <form id="teacherForm">
+
+        <input type="text" id="teacherId" placeholder="Teacher ID" required>
+
+        <input type="text" id="teacherName" placeholder="Teacher Name" required>
+
+        <input type="text" id="teacherSubject" placeholder="Subject" required>
+
+        <input type="number" id="teacherSalary" placeholder="Salary" required>
+
+        <button type="submit">Add Teacher</button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Al-Ilm School</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+
+    // Teacher Select Function
+    function addRowClickEvent(row){
+
+      row.addEventListener("click", function(){
+
+        const rows = document.querySelectorAll("#teacherTable tbody tr");
+
+        rows.forEach(function(r){
+          r.style.background = "";
+        });
+
+        row.style.background = "#dfe6e9";
+
+        const teacherName = row.children[1].innerText;
+
+        alert(teacherName + " Selected");
+
+      });
+
+    }
+
+    // Existing Rows
+    const oldRows = document.querySelectorAll("#teacherTable tbody tr");
+
+    oldRows.forEach(function(row){
+      addRowClickEvent(row);
+    });
+
+    // Add Teacher Function
+    const form = document.getElementById("teacherForm");
+
+    form.addEventListener("submit", function(e){
+
+      e.preventDefault();
+
+      const id = document.getElementById("teacherId").value;
+      const name = document.getElementById("teacherName").value;
+      const subject = document.getElementById("teacherSubject").value;
+      const salary = document.getElementById("teacherSalary").value;
+
+      const tableBody = document.querySelector("#teacherTable tbody");
+
+      const newRow = document.createElement("tr");
+
+      newRow.innerHTML = `
+        <td>${id}</td>
+        <td>${name}</td>
+        <td>${subject}</td>
+        <td>${salary}</td>
+      `;
+
+      tableBody.appendChild(newRow);
+
+      // Click Event New Row
+      addRowClickEvent(newRow);
+
+      alert("Teacher Added Successfully");
+
+      form.reset();
+
+    });
+
+  </script>
+
+</body>
+
+</html>

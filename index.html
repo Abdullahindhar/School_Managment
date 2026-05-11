@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Al-Ilm School</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #f4f4f4;
+    }
+
+    .header {
+      background: #2c3e50;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      flex: 1;
+      min-width: 150px;
+      background: #ecf0f1;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    .btn {
+      background: #2c3e50;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    #clock {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <h2>Al-Ilm School</h2>
+
+    <div class="nav">
+      <a href="index.html">Home</a>
+      <a href="Students.html">Students</a>
+      <a href="Teachers.html">Teachers</a>
+      <a href="Monthly_fee.html">Fees</a>
+      <a href="About_Page.html">About</a>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="card">
+      <h2>Welcome To School Dashboard</h2>
+
+      <div id="clock"></div>
+    </div>
+
+    <div class="card">
+
+      <h2>Dashboard Overview</h2>
+
+      <div class="stats">
+
+        <div class="stat">
+          <h1 id="students">600</h1>
+          <p>Students</p>
+        </div>
+
+        <div class="stat">
+          <h1 id="teachers">18</h1>
+          <p>Teachers</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Al-Ilm School</p>
+  </footer>
+
+  <script>
+
+    // Clock
+    function updateClock() {
+
+      const now = new Date();
+
+      document.getElementById("clock").innerHTML =
+        now.toLocaleTimeString();
+
+    }
+
+    setInterval(updateClock, 1000);
+
+    // Welcome
+    // alert("Welcome To Al-Ilm School");
+
+  </script>
+
+</body>
+
+</html>

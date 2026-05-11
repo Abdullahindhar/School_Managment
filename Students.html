@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students</title>
+
+  <style>
+
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#f4f4f4;
+    }
+
+    /* Header */
+    .header{
+      background:#2c3e50;
+      color:white;
+      padding:15px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .logo img{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+    }
+
+    .nav a{
+      color:white;
+      text-decoration:none;
+      margin-left:15px;
+      font-size:16px;
+    }
+
+    .nav a:hover{
+      color:#f1c40f;
+    }
+
+    .nav .active{
+      border-bottom:2px solid white;
+      padding-bottom:4px;
+    }
+
+    /* Main */
+    .container{
+      padding:20px;
+    }
+
+    .card{
+      background:white;
+      padding:20px;
+      border-radius:10px;
+      margin-bottom:20px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    table th,
+    table td{
+      border:1px solid #ccc;
+      padding:10px;
+      text-align:center;
+    }
+
+    table th{
+      background:#2c3e50;
+      color:white;
+    }
+
+    table tr:hover{
+      background:#ecf0f1;
+    }
+
+    input,
+    select{
+      width:100%;
+      padding:10px;
+      margin-top:10px;
+      border:1px solid #ccc;
+      border-radius:5px;
+      box-sizing:border-box;
+    }
+
+    button{
+      background:#2c3e50;
+      color:white;
+      border:none;
+      padding:10px 15px;
+      margin-top:15px;
+      cursor:pointer;
+      border-radius:5px;
+    }
+
+    button:hover{
+      background:#34495e;
+    }
+
+    /* Footer */
+    footer{
+      background:#2c3e50;
+      color:white;
+      text-align:center;
+      padding:15px;
+      margin-top:20px;
+    }
+
+    /* Responsive */
+    @media(max-width:768px){
+
+      .header{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .nav{
+        margin-top:10px;
+      }
+
+      .nav a{
+        display:inline-block;
+        margin:5px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="header">
+
+    <div class="logo">
+      <img src="school_logo.png" alt="logo">
+      <h2>Al-Ilm School</h2>
+    </div>
+
+    <div class="nav">
+      <a href="index.html">Home</a>
+      <a href="Students.html" class="active">Students</a>
+      <a href="Teachers.html">Teachers</a>
+      <a href="Monthly_fee.html">Fees</a>
+      <a href="About_Page.html">About</a>
+    </div>
+
+  </div>
+
+  <!-- Main -->
+  <div class="container">
+
+    <!-- Student Table -->
+    <div class="card">
+
+      <h2>Students Records</h2>
+
+      <table id="studentTable">
+
+        <thead>
+          <tr>
+            <th>Admission</th>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Fee</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>2025-001</td>
+            <td>Ahmed</td>
+            <td>V</td>
+            <td>4000</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <!-- Add Student -->
+    <div class="card">
+
+      <h3>Add Student</h3>
+
+      <form id="studentForm">
+
+        <input type="text" id="admission" placeholder="Admission No" required>
+
+        <input type="text" id="name" placeholder="Student Name" required>
+
+        <select id="studentClass">
+          <option>V</option>
+          <option>VI</option>
+          <option>VII</option>
+        </select>
+
+        <input type="number" id="fee" placeholder="Monthly Fee">
+
+        <button type="submit">Add Student</button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Al-Ilm School</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+
+    const form = document.getElementById("studentForm");
+
+    form.addEventListener("submit", function(e){
+
+      e.preventDefault();
+
+      const admission = document.getElementById("admission").value;
+      const name = document.getElementById("name").value;
+      const studentClass = document.getElementById("studentClass").value;
+      const fee = document.getElementById("fee").value;
+
+      const table = document.querySelector("#studentTable tbody");
+
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${admission}</td>
+        <td>${name}</td>
+        <td>${studentClass}</td>
+        <td>${fee}</td>
+      `;
+
+      table.appendChild(row);
+
+      alert("Student Added Successfully");
+
+      form.reset();
+
+    });
+
+  </script>
+
+</body>
+
+</html>
