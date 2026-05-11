@@ -111,10 +111,19 @@
       padding:10px 20px;
       border-radius:5px;
       cursor:pointer;
+      margin:3px;
     }
 
     button:hover{
       background:#34495e;
+    }
+
+    .delete-btn{
+      background:red;
+    }
+
+    .delete-btn:hover{
+      background:darkred;
     }
 
     /* Footer */
@@ -188,6 +197,7 @@
             <th>Name</th>
             <th>Subject</th>
             <th>Salary</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -198,6 +208,11 @@
             <td>Sobia</td>
             <td>Math</td>
             <td>40000</td>
+
+            <td>
+              <button onclick="editTeacher(this)">Edit</button>
+              <button class="delete-btn" onclick="deleteTeacher(this)">Delete</button>
+            </td>
           </tr>
 
           <tr>
@@ -205,6 +220,11 @@
             <td>Kamran</td>
             <td>Science</td>
             <td>35000</td>
+
+            <td>
+              <button onclick="editTeacher(this)">Edit</button>
+              <button class="delete-btn" onclick="deleteTeacher(this)">Delete</button>
+            </td>
           </tr>
 
           <tr>
@@ -212,6 +232,11 @@
             <td>Rabia</td>
             <td>English</td>
             <td>30000</td>
+
+            <td>
+              <button onclick="editTeacher(this)">Edit</button>
+              <button class="delete-btn" onclick="deleteTeacher(this)">Delete</button>
+            </td>
           </tr>
 
         </tbody>
@@ -251,37 +276,12 @@
   <!-- JavaScript -->
   <script>
 
-    // Teacher Select Function
-    function addRowClickEvent(row){
-
-      row.addEventListener("click", function(){
-
-        const rows = document.querySelectorAll("#teacherTable tbody tr");
-
-        rows.forEach(function(r){
-          r.style.background = "";
-        });
-
-        row.style.background = "#dfe6e9";
-
-        const teacherName = row.children[1].innerText;
-
-        alert(teacherName + " Selected");
-
-      });
-
-    }
-
-    // Existing Rows
-    const oldRows = document.querySelectorAll("#teacherTable tbody tr");
-
-    oldRows.forEach(function(row){
-      addRowClickEvent(row);
-    });
-
-    // Add Teacher Function
     const form = document.getElementById("teacherForm");
+    const tableBody = document.querySelector("#teacherTable tbody");
 
+    let editRow = null;
+
+    // Add Teacher
     form.addEventListener("submit", function(e){
 
       e.preventDefault();
@@ -291,27 +291,69 @@
       const subject = document.getElementById("teacherSubject").value;
       const salary = document.getElementById("teacherSalary").value;
 
-      const tableBody = document.querySelector("#teacherTable tbody");
+      // Edit Teacher
+      if(editRow){
 
-      const newRow = document.createElement("tr");
+        editRow.cells[0].innerText = id;
+        editRow.cells[1].innerText = name;
+        editRow.cells[2].innerText = subject;
+        editRow.cells[3].innerText = salary;
 
-      newRow.innerHTML = `
-        <td>${id}</td>
-        <td>${name}</td>
-        <td>${subject}</td>
-        <td>${salary}</td>
-      `;
+        alert("Teacher Updated Successfully");
 
-      tableBody.appendChild(newRow);
+        editRow = null;
 
-      // Click Event New Row
-      addRowClickEvent(newRow);
+      }
 
-      alert("Teacher Added Successfully");
+      // Add New Teacher
+      else{
+
+        const newRow = document.createElement("tr");
+
+        newRow.innerHTML = `
+          <td>${id}</td>
+          <td>${name}</td>
+          <td>${subject}</td>
+          <td>${salary}</td>
+
+          <td>
+            <button onclick="editTeacher(this)">Edit</button>
+            <button class="delete-btn" onclick="deleteTeacher(this)">Delete</button>
+          </td>
+        `;
+
+        tableBody.appendChild(newRow);
+
+        alert("Teacher Added Successfully");
+
+      }
 
       form.reset();
 
     });
+
+    // Delete Teacher
+    function deleteTeacher(btn){
+
+      if(confirm("Are you sure you want to delete this teacher?")){
+
+        btn.parentElement.parentElement.remove();
+
+      }
+
+    }
+
+    // Edit Teacher
+    function editTeacher(btn){
+
+      editRow = btn.parentElement.parentElement;
+
+      document.getElementById("teacherId").value = editRow.cells[0].innerText;
+      document.getElementById("teacherName").value = editRow.cells[1].innerText;
+      document.getElementById("teacherSubject").value = editRow.cells[2].innerText;
+      document.getElementById("teacherSalary").value = editRow.cells[3].innerText;
+
+    }
 
   </script>
 
