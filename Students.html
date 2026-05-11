@@ -101,14 +101,22 @@
       background:#2c3e50;
       color:white;
       border:none;
-      padding:10px 15px;
-      margin-top:15px;
+      padding:8px 12px;
+      margin:3px;
       cursor:pointer;
       border-radius:5px;
     }
 
     button:hover{
       background:#34495e;
+    }
+
+    .delete-btn{
+      background:red;
+    }
+
+    .delete-btn:hover{
+      background:darkred;
     }
 
     /* Footer */
@@ -178,6 +186,7 @@
             <th>Name</th>
             <th>Class</th>
             <th>Fee</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -188,6 +197,11 @@
             <td>Ahmed</td>
             <td>V</td>
             <td>4000</td>
+
+            <td>
+              <button onclick="editStudent(this)">Edit</button>
+              <button class="delete-btn" onclick="deleteStudent(this)">Delete</button>
+            </td>
           </tr>
 
         </tbody>
@@ -232,6 +246,9 @@
   <script>
 
     const form = document.getElementById("studentForm");
+    const table = document.querySelector("#studentTable tbody");
+
+    let editRow = null;
 
     form.addEventListener("submit", function(e){
 
@@ -242,24 +259,69 @@
       const studentClass = document.getElementById("studentClass").value;
       const fee = document.getElementById("fee").value;
 
-      const table = document.querySelector("#studentTable tbody");
+      // Edit Student
+      if(editRow){
 
-      const row = document.createElement("tr");
+        editRow.cells[0].innerText = admission;
+        editRow.cells[1].innerText = name;
+        editRow.cells[2].innerText = studentClass;
+        editRow.cells[3].innerText = fee;
 
-      row.innerHTML = `
-        <td>${admission}</td>
-        <td>${name}</td>
-        <td>${studentClass}</td>
-        <td>${fee}</td>
-      `;
+        alert("Student Updated Successfully");
 
-      table.appendChild(row);
+        editRow = null;
 
-      alert("Student Added Successfully");
+      }
+
+      // Add Student
+      else{
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td>${admission}</td>
+          <td>${name}</td>
+          <td>${studentClass}</td>
+          <td>${fee}</td>
+
+          <td>
+            <button onclick="editStudent(this)">Edit</button>
+            <button class="delete-btn" onclick="deleteStudent(this)">Delete</button>
+          </td>
+        `;
+
+        table.appendChild(row);
+
+        alert("Student Added Successfully");
+
+      }
 
       form.reset();
 
     });
+
+    // Delete Function
+    function deleteStudent(btn){
+
+      if(confirm("Are you sure you want to delete this student?")){
+
+        btn.parentElement.parentElement.remove();
+
+      }
+
+    }
+
+    // Edit Function
+    function editStudent(btn){
+
+      editRow = btn.parentElement.parentElement;
+
+      document.getElementById("admission").value = editRow.cells[0].innerText;
+      document.getElementById("name").value = editRow.cells[1].innerText;
+      document.getElementById("studentClass").value = editRow.cells[2].innerText;
+      document.getElementById("fee").value = editRow.cells[3].innerText;
+
+    }
 
   </script>
 
